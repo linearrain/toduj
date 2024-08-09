@@ -1,0 +1,32 @@
+{
+    "sk": { 
+      "create_task":  "Vitajte! Chceli by ste pozriet na svoje zadania (1) alebo vytvorit nove (2)?",
+      "task_creator": "[Vytvarač zadaní]",
+      "task_creator_intro": "Teraz pomôžem Vam vytvoriť zadanie",
+      "name": "Nazov",
+      "date": "Data deadlinu vo formate",
+      "time": "Cas deadlinu vo formate",
+      
+      "see_tasks": "Tu je zoznam Vašich zadaní: "
+    },
+    "ua": {
+      "create_task":  "Вітаємо! Гляньте на свої завдання (1) або створіть нове (2)",
+      "task_creator": "[Творець завдань]",
+      "task_creator_intro": "Зараз я допоможу Вам створити нове завдання. Введіть наступні дані, які запитуватиме творець завдань.",
+      "name": "Назва",
+      "date": "Дата дедлайну у форматі ",
+      "time": "Час дедлайну у форматі ",
+      
+      "see_tasks": "Перед Вами завдання, які не було виконано до цього часу:"
+    },
+    "en": {
+      "create_task":  "Welcome! Check out your tasks progress (1) or create a new one (2)",
+      "task_creator": "[Task Creator]",
+      "task_creator_intro": "Now, I will introduce you to create a new task. Type the information, which Task Creator will ask from you.",
+      "name": "Name",
+      "date": "Date of the deadline in the following format ",
+      "time": "Time of the deadline in the following format ",
+      
+      "see_tasks": "Here is the list of your current tasks: "
+    }
+}
