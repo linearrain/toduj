@@ -1,6 +1,9 @@
 use crate::Help;
 use colored::*;
 
+// A small module for calling the help message in case user confused the command or needs
+// assistance
+
 pub fn help_message(issue : Help) {
     println!("{} {}", "[Toduj Help]".blue(), 
 

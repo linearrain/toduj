@@ -3,6 +3,7 @@ use colored::*;
 use std::{fs::File, io::Read};
 use crate::Langs;
 
+// Toduj heavily relies on user input, so to shorten the code this function was created 
 pub fn get_input() -> String {
     let mut input = String::new();
 
@@ -10,11 +11,15 @@ pub fn get_input() -> String {
     input.trim().to_string()
 }
 
+// A function, which creates a markup for program messages. Supports both error output and normal
+// one 
 pub fn app_print(text : &str, is_e : bool) {
     if !is_e {
+        // Success / Instruction
         println!("{} {}", "[Toduj v1.0]".green(), text);
     }
     else {
+        // An error occurred
         println!("{} {}", "[Toduj v1.0]".red(), text);
     }
 }
@@ -29,6 +34,7 @@ pub fn is_number(num : &str) -> bool {
     true
 }
 
+// A fucntion used to set the language of the program
 pub fn set_langs() -> Langs {
     let mut file  = File::open("translates.json").unwrap();
     let mut texts = String::new();

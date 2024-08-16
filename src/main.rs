@@ -40,7 +40,9 @@ fn language_select(app_settings : &mut App, user_lang : &String) -> usize {
 fn main() {
     let mut app_settings = App {
         langs_available: vec![("sk".to_string(), "Slovenčina".to_string()),
-        ("ua".to_string(), "Українська".to_string()), ("en".to_string(), "English".to_string())],
+        ("ua".to_string(), "Українська".to_string()), 
+        ("en".to_string(), "English".to_string()),
+        ("cz".to_string(), "Czech".to_string())],
         lang_code: 0,
     };
 

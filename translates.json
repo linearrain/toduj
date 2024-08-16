@@ -28,5 +28,15 @@
       "time": "Time of the deadline in the following format ",
       
       "see_tasks": "Here is the list of your current tasks: "
+    },
+
+    "cz": {
+      "create_task":  "Vitejte! Chtěli byste podívat svá zadaní (1) nebo přidělit nové (2)?",
+      "task_creator": "[Tvůrce zadaní]",
+      "task_creator_intro": "Nyní pomůžu Vám vytvořit nové zadaní",
+      "name": "Nazev",
+      "date": "Data deadlinu ve formate",
+      "time": "Čas deadlinu ve formate:",
+      "see_tasks": "Můžete podívat svá zadaní, které stale museli byste Vy dokončit"
     }
 }
