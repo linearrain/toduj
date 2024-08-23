@@ -13,14 +13,17 @@ pub fn get_input() -> String {
 
 // A function, which creates a markup for program messages. Supports both error output and normal
 // one 
-pub fn app_print(text : &str, is_e : bool) {
-    if !is_e {
-        // Success / Instruction
-        println!("{} {}", "[Toduj v1.0]".green(), text);
-    }
-    else {
-        // An error occurred
-        println!("{} {}", "[Toduj v1.0]".red(), text);
+pub fn app_print(text : &str, is_e : bool, nline : bool) {
+    let newline = || -> &str {
+        match nline {
+            false => "",
+            true  => "\n",
+        }
+    };
+
+    match is_e {
+        false => print!("{} {}{}", "[Toduj v1.0]".green(), text, newline()),
+        true  => print!("{} {}{}", "[Toduj v1.0]".red(), text, newline()),
     }
 }
 

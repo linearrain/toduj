@@ -28,7 +28,7 @@ fn add_task(app_sets : &App, languages : &Langs) {
 
 
         if date.len() < 3 {
-            app_print("Invalid Date Format", true);
+            app_print("Invalid Date Format", true, true);
             continue;
         }
 
@@ -37,7 +37,7 @@ fn add_task(app_sets : &App, languages : &Langs) {
         dd   = handle_number_part(&date, 2);
 
         if (1970 > yyyy) || (mm > 12 || mm < 1) || (dd < 1 || dd > 31) {
-            app_print("Invalid Date Format", true);
+            app_print("Invalid Date Format", true, true);
             continue;
         }
 
@@ -54,13 +54,13 @@ fn add_task(app_sets : &App, languages : &Langs) {
         let time = get_input();
 
         if time.is_empty() {
-            app_print("Wrong time format", true);
+            app_print("Wrong time format", true, true);
             continue;
         }
         let time : Vec<&str> = time.split(':').collect();
 
         if time.len() < 2 {
-            app_print("Wrong time format", true);
+            app_print("Wrong time format", true, true);
             continue;
         }
 
@@ -74,8 +74,8 @@ fn add_task(app_sets : &App, languages : &Langs) {
 
     let task = Task {name, yyyy, mm, dd, hrs, mnt, crossed : false};
     match task.write() {
-        Ok(_)  => app_print("", false),
-        Err(_) => app_print("Random error occured. Try again.", true)
+        Ok(_)  => app_print("", false, false),
+        Err(_) => app_print("Random error occured. Try again.", true, true)
     }
 
     
@@ -102,7 +102,7 @@ pub fn see_tasks(app_sets : &App, languages : &Langs) {
     let tasks = get_data();
 
     if tasks.is_err() {
-        app_print("Your task list is empty", false);
+        app_print("Your task list is empty", false, true);
         return ;
     }
 
@@ -112,7 +112,9 @@ pub fn see_tasks(app_sets : &App, languages : &Langs) {
 
     println!("{:<6}{:<34}{:<16}{:<8}{:<20}", "Num".green().bold().on_white(), "Name".black().bold().on_white(), "Deadline".black().bold().on_white(), "Until".black().bold().on_white(), "Operations".black().bold().on_white());
 
-    tasks.sort_by_key(|task| ((task.yyyy as u64) * 100000000 + (task.mm as u64) * 1000000 + (task.dd as u64)) * 10000 + (task.hrs as u64) * 100 + (task.mnt as u64));
+    tasks.sort_by_key(|task| ((task.yyyy as u64) * 100000000 + (task.mm as u64) * 1000000 
+                                                             + (task.dd as u64)) * 10000 
+                                                             + (task.hrs as u64) * 100 + (task.mnt as u64));
 
     for task in &tasks {
         println!("{counter:<5} {:<30}\t{}/{}/{}\t{}:{}\t{}el   {}ark", 
@@ -135,33 +137,33 @@ pub fn see_tasks(app_sets : &App, languages : &Langs) {
 
         let _ = &cmd.swap_remove(0);
         if !check_vec_on_digits(&cmd) {
-            app_print("Non-valid digit code. Try again.", true);
+            app_print("Non-valid digit code. Try again.", true, true);
             return ;
         }
 
         for num in &cmd {
             if let Some(number) = num.parse::<usize>().ok() {
                 if tasks.len() < number || number == 0 {
-                    app_print("Non-valid digit code. Try again.", true);
+                    app_print("Non-valid digit code. Try again.", true, true);
                     return ;
                 }
 
                 match first_letter {
                     "D" => match delete_task(&tasks[number - 1].name) {
-                        Ok(_)  => app_print("You have deleted the task(s).", false),
-                        Err(_) => app_print("", true)
+                        Ok(_)  => app_print("You have deleted the task(s).", false, true),
+                        Err(_) => app_print("", true, true)
                     },
                     "M" => match mark_task(number - 1) {
-                        Ok(_)  => app_print("You have completed the task(s). Congrats!", false),
-                        Err(_) => app_print("", true)
+                        Ok(_)  => app_print("You have completed the task(s). Congrats!", false, true),
+                        Err(_) => app_print("", true, true)
                     },
-                     _  => help_message(Help::UnknownCommand),
+                     _  => help_message(Help::UnknownCommand, app_sets, languages),
                 }
             }
         }
 
         if cmd.len() < 1 {
-            app_print("Wrong Task Command. Use 'help' to see all the available", true)
+            app_print("Wrong Task Command. Use 'help' to see all the available", true, true)
         }
     };
 
@@ -171,7 +173,7 @@ pub fn see_tasks(app_sets : &App, languages : &Langs) {
         let mut cmd : Vec<&str> = cmd.split(' ').collect();
 
         match cmd[0] {
-            "help" => help_message(Help::SeeTasks),
+            "help" => help_message(Help::SeeTasks, app_sets, languages),
             "back" => break,
             "add"  => { add_task(app_sets, languages); break },
              _     => { 
@@ -186,14 +188,14 @@ pub fn start_app(app_sets : &App, languages : &Langs) {
     loop {
         clearscreen::clear().unwrap();
 
-        app_print(languages.lang(app_sets.lang_code).create_task.as_str(), false);
+        app_print(languages.lang(app_sets.lang_code).create_task.as_str(), false, true);
         let input : String = get_input();
 
         match input.as_str() {
             "1" | "one" | "jedna" | "один" => see_tasks(app_sets, languages),
-            "2" | "two" | "dva"   | "два"  => add_task(app_sets,languages),
+            "2" | "two" | "dva"   | "два"  => add_task(app_sets, languages),
             "exit" | "вийти" | "vystup"    => break,
-             _ => app_print("Unknown command", true)
+             _ => app_print("Unknown command", true, true)
         }
     }
 }

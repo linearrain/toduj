@@ -1,5 +1,8 @@
+/*  
+ *  All the used imports
+ */
 use colored::*;
-use std::io::Write;
+use std::{io::{Error, Write}, time::Duration};
 
 pub mod languages;
 use languages::Langs;
@@ -15,58 +18,68 @@ use help::help_message;
 
 pub mod task_manager;
 
-pub struct App {
-    langs_available : Vec<(String, String)>,
+// A structure, which holds the app language properties
+pub struct App<'a> {
+    langs_available : Vec<(&'a str, &'a str)>,
     lang_code : usize,
 }
 
+// An enum for different help codes
 pub enum Help {
     SeeTasks, UnknownCommand
 }
 
-fn language_select(app_settings : &mut App, user_lang : &String) -> usize {
-    let mut counter : usize = 0;
-    for lang in &app_settings.langs_available {
-        if *user_lang == *lang.0 {
-            app_settings.lang_code = counter;
-            return counter;
-        }
-        counter += 1;
-    }
-
-    counter
+// Language selector function
+fn language_select(app_settings : &mut App, user_lang : &str) -> Option<usize> {
+    app_settings.langs_available.iter()
+        .position(|&lan| lan.0 == user_lang)
 }
 
 fn main() {
     let mut app_settings = App {
-        langs_available: vec![("sk".to_string(), "Slovenčina".to_string()),
-        ("ua".to_string(), "Українська".to_string()), 
-        ("en".to_string(), "English".to_string()),
-        ("cz".to_string(), "Czech".to_string())],
+        langs_available: vec![("sk", "Slovenčina"),
+                              ("ua", "Українська"), 
+                              ("en", "English"),
+                              ("cz", "Czech")],
         lang_code: 0,
     };
 
     clearscreen::clear().unwrap();
 
-    app_print("Welcome! To start, select the preffered language:", false);
+    app_print("Welcome! To start, select the preffered language:", false, true);
 
     for lang in &app_settings.langs_available {
         println!("{}\t({})", lang.1.blue(), lang.0.green());
     }
 
-    let user_lang = get_input();
+    let mut lang_code : Option<usize>;
 
-    let mut lang = language_select(&mut app_settings, &user_lang);
+    loop {
+        let user_lang : &str = &get_input();
+        lang_code = language_select(&mut app_settings, user_lang);
 
-    while lang == app_settings.langs_available.len() {
-        app_print("There was a trouble during the language selection. No following language code is provided. Type the languge code you want to have the app set in. For example: ", true);
-        print!("{}", &app_settings.langs_available.get(1).unwrap().0.blue());
-        std::io::stdout().flush().unwrap();
-        let user_lang = get_input();
-        lang = language_select(&mut app_settings, &user_lang);
+        match lang_code {
+            None       => {     
+                              app_print("There was a trouble during the language selection. No following language code is provided. Type the languge code you want to have the app set in. For example: ", true, false);
+                              print!("{}", &app_settings.langs_available.get(1).unwrap().0.blue()); 
+                              std::io::stdout().flush().unwrap(); 
+                          },
+            Some(code) => {app_settings.lang_code = code; break},
+        }
     }
 
-    println!("{} is selected. Further services will be provided in the following language: {}", &app_settings.lang_code.to_string().blue(), &app_settings.langs_available.get(lang).unwrap().1.to_string().blue());
+    let (_lan_abbr, lan_name) = &app_settings.langs_available.get(app_settings.lang_code).unwrap();
+
+    println!("{} is selected. Further services will be provided in the following language: {}", 
+                &app_settings.lang_code.to_string().blue(), 
+                lan_name.green()
+            );
+    
+    for i in (0..=100).step_by(5) {
+            print!("\rLoading {i}%");
+            std::thread::sleep(Duration::from_millis(60));
+            std::io::stdout().flush().unwrap();
+    }
 
     let langs : Langs = io_out::set_langs();
 

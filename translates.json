@@ -7,7 +7,12 @@
       "date": "Data deadlinu vo formate",
       "time": "Cas deadlinu vo formate",
       
-      "see_tasks": "Tu je zoznam Vašich zadaní: "
+      "see_tasks": "Tu je zoznam Vašich zadaní: ",
+
+      
+
+      "tasks_commands": "D <číslo> - vymazať zadanie\n             M <číslo> - označiť zadanie, ako dokončené\n             add - pridať nové zadanie do zoznámu",
+      "unknown_command": "Neznamý prikaz. Použite 'help' na vysvetlenie všetkych dostupných operacií"
     },
     "ua": {
       "create_task":  "Вітаємо! Гляньте на свої завдання (1) або створіть нове (2)",
@@ -17,7 +22,12 @@
       "date": "Дата дедлайну у форматі ",
       "time": "Час дедлайну у форматі ",
       
-      "see_tasks": "Перед Вами завдання, які не було виконано до цього часу:"
+      "see_tasks": "Перед Вами завдання, які не було виконано до цього часу:",
+
+
+
+      "tasks_commands":  "D <номер> - видалити завдання\n             M <номер> - позначити завдання виконаним\n             add - Створити нове завдання",
+      "unknown_command": "Невідома команда. Введіть 'help' задля отримання допомоги за програмою"
     },
     "en": {
       "create_task":  "Welcome! Check out your tasks progress (1) or create a new one (2)",
@@ -27,7 +37,12 @@
       "date": "Date of the deadline in the following format ",
       "time": "Time of the deadline in the following format ",
       
-      "see_tasks": "Here is the list of your current tasks: "
+      "see_tasks": "Here is the list of your current tasks: ",
+
+
+
+      "tasks_commands": "D <number> - delete / complete the task\n             E <number> - mark as completed\n             add - Go to Task Creator",
+      "unknown_command": "Unknown Command. Please, refer to 'help' to see all the available commands in this part"
     },
 
     "cz": {
@@ -37,6 +52,11 @@
       "name": "Nazev",
       "date": "Data deadlinu ve formate",
       "time": "Čas deadlinu ve formate:",
-      "see_tasks": "Můžete podívat svá zadaní, které stale museli byste Vy dokončit"
+      "see_tasks": "Můžete podívat svá zadaní, které stale museli byste Vy dokončit",
+
+
+
+      "tasks_commands": "D <number> - vymazat zadaní\n             M <number> - označit zadaní, jako splnené\n             add - přidat nové zadaní",
+      "unknown_command": "Neznamý přikaz. Využíte 'help' pro vysvětlení všechní dostupní operace"
     }
 }

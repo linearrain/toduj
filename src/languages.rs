@@ -20,7 +20,10 @@ pub struct Translates {
     pub date : String,
     pub time : String,
 
-    pub see_tasks : String
+    pub see_tasks : String,
+    
+    pub tasks_commands  : String,
+    pub unknown_command : String,
 }
 
 // An implement for Languages structure, which involves the language setting process

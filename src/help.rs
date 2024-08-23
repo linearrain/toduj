@@ -1,15 +1,15 @@
-use crate::Help;
+use crate::{Help, Langs, App};
 use colored::*;
 
 // A small module for calling the help message in case user confused the command or needs
 // assistance
 
-pub fn help_message(issue : Help) {
+pub fn help_message(issue : Help, app_sets : &App, languages : &Langs) {
     println!("{} {}", "[Toduj Help]".blue(), 
 
         match issue {
-            Help::SeeTasks       => "D <number> - delete / complete the task\n             E <number> - edit the task details",
-            Help::UnknownCommand => "Unknown Command. Please, refer to 'help' to see all the available commands in this part",
+            Help::SeeTasks        => languages.lang(app_sets.lang_code).tasks_commands.as_str(),
+            Help::UnknownCommand  => languages.lang(app_sets.lang_code).tasks_commands.as_str(),
         }
     );
     println!("             Use {} to return to the menu", "back".blue())
